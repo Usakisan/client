@@ -136,9 +136,8 @@ async def main() -> None:
     print("終了するには exit または Ctrl+C を入力してください。")
 
     async with streamable_http_client(MCP_URL) as (
-        read_stream,
-        write_stream,
-        _,
+    read_stream,
+    write_stream,
     ):
         async with ClientSession(read_stream, write_stream) as session:
             await session.initialize()
