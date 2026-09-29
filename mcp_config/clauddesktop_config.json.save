@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "iot-naive-proxy": {
+      "url": "http://100.86.227.30:8000/mcp"
+    }
+  }
+}

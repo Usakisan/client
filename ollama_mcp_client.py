@@ -9,19 +9,13 @@ from mcp.client.streamable_http import streamable_http_client
 
 MCP_URL = os.getenv("MCP_URL", "http://100.86.227.30:8000/mcp")
 OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://127.0.0.1:11434")
-OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen2.5:7b")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen3:14b")
 
 ollama_client = ollama.Client(host=OLLAMA_HOST)
 
 SYSTEM_PROMPT = """
 あなたはIoT温湿度センサーを操作するローカルLLMです。
 利用可能なMCPツールを使用してIoTデバイスを操作できます。
-
-重要:
-- ユーザーの要求に応じて、必要なMCP toolを選択してください。
-- Toolの引数を勝手に変更しないでください。
-- Tool実行結果を確認してからユーザーへ回答してください。
-- セキュリティ上の判断を独自に追加せず、MCPサーバーから返された結果を尊重してください。
 """.strip()
 
 
