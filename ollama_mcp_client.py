@@ -9,6 +9,7 @@ from mcp.client.streamable_http import streamable_http_client
 
 MCP_URL = os.getenv("MCP_URL", "http://100.86.227.30:8001/mcp")
 OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://127.0.0.1:11434")
+#llama3.2:3b, llama3.1:8b, qwen2.5:3B, qwen2.5:7b, qwen3:14b, qwen3:8B
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen3:14b")
 
 ollama_client = ollama.Client(host=OLLAMA_HOST)
