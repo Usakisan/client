@@ -11,6 +11,9 @@ MCP_URL = os.getenv("MCP_URL", "http://100.86.227.30:8001/mcp")
 OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://127.0.0.1:11434")
 #llama3.2:3b, llama3.1:8b, qwen2.5:3B, qwen2.5:7b, qwen3:14b, qwen3:8B
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen3:14b")
+# LLMの応答のランダム性（創造性）を制御する値。0に近いほど決定的・一貫した応答になり、
+# 1(またはそれ以上)に近いほどランダム性の高い応答になる。
+OLLAMA_TEMPERATURE = float(os.getenv("OLLAMA_TEMPERATURE", "1.0"))
 
 ollama_client = ollama.Client(host=OLLAMA_HOST)
 
@@ -68,6 +71,7 @@ async def run_agent(session: ClientSession, user_text: str) -> str:
             model=OLLAMA_MODEL,
             messages=messages,
             tools=tools,
+            options={"temperature": OLLAMA_TEMPERATURE},
         )
 
         message = response.message
@@ -127,6 +131,7 @@ async def main() -> None:
     print("=== Ollama + MCP IoT Client ===")
     print(f"Ollama: {OLLAMA_HOST}")
     print(f"Model : {OLLAMA_MODEL}")
+    print(f"Temperature : {OLLAMA_TEMPERATURE}")
     print(f"MCP   : {MCP_URL}")
     print("終了するには exit または Ctrl+C を入力してください。")
 
