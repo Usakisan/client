@@ -322,7 +322,7 @@ def parse_args() -> argparse.Namespace:
         "--log-file",
         type=Path,
         default=None,
-        help="Output JSONL file (default: logs/auto_prompt_<UTC timestamp>.jsonl)",
+        help="Output JSONL file (default: aircon_logs/<condition>.jsonl)",
     )
     parser.add_argument(
         "--condition",
@@ -347,8 +347,8 @@ async def main() -> int:
         print("[ERROR] No prompts to run.", file=sys.stderr)
         return 2
 
-    default_name = f"auto_prompt_{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}.jsonl"
-    log_path = args.log_file or Path("logs") / default_name
+    default_name = f"{args.condition}.jsonl"
+    log_path = args.log_file or Path("aircon_logs") / default_name
     LOGGER = JsonlLogger(log_path)
     prompt_bytes = args.prompt_file.read_bytes()
 
