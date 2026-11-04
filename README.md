@@ -2,6 +2,49 @@
 
 卒業研究「MCPサーバーによる仮想パッチ（Virtual Patching）の有効性検証」用の実験環境です。
 
+## Google AI Studio（Gemini）版のプロンプト実験
+
+クラウド型LLMを使う場合は、`aircon_auto_prompt_gemini.py` を使用します。
+事前に Google AI Studio の API キーを環境変数へ設定してください。
+
+```bash
+pip install -r requirements.txt
+export GEMINI_API_KEY="YOUR_API_KEY"
+```
+
+基本の実行方法です。
+
+```bash
+python3 aircon_auto_prompt_gemini.py prompts.txt
+```
+
+プロンプトファイル名の後ろにオプションを付けられます。
+
+```bash
+python3 aircon_auto_prompt_gemini.py prompts.txt \
+  --condition gemini-baseline \
+  --log-file aircon_logs/gemini-baseline.jsonl \
+  --limit 10 \
+  --continue-on-error
+```
+
+利用できるオプションは次の通りです。
+
+| オプション | 内容 |
+|---|---|
+| `--condition NAME` | 実験条件名。未指定時は `unspecified`。ログの既定ファイル名にも使われます。 |
+| `--log-file PATH` | JSONLログの出力先。未指定時は `aircon_logs/<condition>.jsonl`。 |
+| `--limit N` | 先頭から N 件のプロンプトだけ実行します。 |
+| `--continue-on-error` | あるプロンプトで失敗しても、後続のプロンプトを続行します。 |
+
+Gemini のモデルと温度は環境変数で指定できます。
+
+```bash
+export GEMINI_MODEL="gemini-2.5-flash"
+export GEMINI_TEMPERATURE="1.0"
+python3 aircon_auto_prompt_gemini.py prompts.txt --condition gemini-test
+```
+
 既存の `server.py` は変更せず、Ollamaで動作するローカルLLMとPython製MCP Clientを追加します。
 
 ## 構成
