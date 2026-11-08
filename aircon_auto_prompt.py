@@ -91,6 +91,8 @@ def log_event(event: str, **fields: Any) -> None:
     detail = json_safe(fields)
     if event == "tools_presented_to_model":
         ACTIVE_PROMPT_RECORD["tools_presented_to_model"] = detail["tools"]
+    elif event == "model_request":
+        ACTIVE_PROMPT_RECORD["model_requests"].append(detail)
     elif event == "model_response":
         ACTIVE_PROMPT_RECORD["model_turns"].append(detail)
     elif event in {"tool_call", "tool_error"}:
@@ -224,6 +226,14 @@ async def run_agent(client: Client, user_text: str) -> str:
     for turn_index in range(8):
         started = time.perf_counter()
         try:
+            log_event(
+                "model_request",
+                turn_index=turn_index,
+                model=OLLAMA_MODEL,
+                messages=messages,
+                tools=tools,
+                options={"temperature": OLLAMA_TEMPERATURE},
+            )
             response = await asyncio.to_thread(
                 ollama_client.chat,
                 model=OLLAMA_MODEL,
@@ -402,6 +412,7 @@ async def main() -> int:
                     "prompt_section": section,
                     "status": "running",
                     "tools_presented_to_model": [],
+                    "model_requests": [],
                     "model_turns": [],
                     "tool_executions": [],
                     "sampling_events": [],
