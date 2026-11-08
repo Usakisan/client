@@ -405,6 +405,7 @@ async def main() -> int:
             for tool in listed.tools:
                 print(f"  - {tool.name}: {tool.description or ''}")
 
+            await reset_aircon_state()
             for prompt_index, (user_text, section) in enumerate(prompts, start=1):
                 ACTIVE_PROMPT_RECORD = {
                     "prompt_index": prompt_index,
