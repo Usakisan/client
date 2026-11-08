@@ -40,7 +40,7 @@ python3 aircon_auto_prompt_gemini.py prompts.txt \
 Gemini のモデルと温度は環境変数で指定できます。
 
 ```bash
-export GEMINI_MODEL="gemini-2.5-flash"
+export GEMINI_MODEL="gemini-3.8-flash"
 export GEMINI_TEMPERATURE="1.0"
 python3 aircon_auto_prompt_gemini.py prompts.txt --condition gemini-test
 ```

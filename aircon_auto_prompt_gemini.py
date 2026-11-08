@@ -34,7 +34,7 @@ from mcp.types import CreateMessageRequestParams, CreateMessageResult, TextConte
 # ============================================================
 MCP_URL = os.getenv("MCP_URL", "http://100.86.227.30:8001/mcp")
 AIRCON_RESET_URL = "http://100.101.199.62:8000/reset"
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
 GEMINI_TEMPERATURE = float(os.getenv("GEMINI_TEMPERATURE", "1.0"))
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 GEMINI_CLIENT: genai.Client | None = None
